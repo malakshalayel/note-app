@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/home_page.dart';
 import 'package:frontend/signup_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -32,6 +33,14 @@ class _LoginPageState extends State<LoginPage> {
         password: passwordController.text.trim(),
       );
       print(userCredential);
+      if (userCredential.user != null) {
+        // Login successful, navigate to home page
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => MyHomePage()));
+      } else {
+        // Login failed, show error
+        print('Login failed: No user found');
+      }
     } catch (e) {
       print(e.toString());
     }
